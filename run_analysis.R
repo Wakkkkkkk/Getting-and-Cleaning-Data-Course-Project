@@ -31,6 +31,7 @@ meanlocs <- c(1,2,3,41,42,43,81,82,83,121,122,123,161,162,163,201,202,203,214,22
 #locations with names from features.txt with std() in the name
 stdlocs <- c(4,5,6,44,45,46,84,85,86,124,125,126,164,165,166,202,215,228,241,254,269,270,271,348,349,350,427,428,429,504,517,530,543)
 features <- read.table("./UCI HAR Dataset/features.txt")
+names(merged) <- c("subject", "activity id", features$V2)
 
 c(meanlocs,stdlocs) -> mergedlocs
 # added 1 and 2 so they are kept in the end dataset along with all the
@@ -44,4 +45,4 @@ merged[,mergedlocs] -> selected
 # Setting up a vector to use to index names
 activityLabels <- c("WALKING","WALKING_UPSTAIRS","WALKING_DOWNSTAIRS","SITTING,STANDING","LAYING")
 # Creates a column called "activityname" to merge the data
-selected$activityname <- activityLabels[selected$V1.1]
+selected$activityname <- activityLabels[selected$`activity id`]
