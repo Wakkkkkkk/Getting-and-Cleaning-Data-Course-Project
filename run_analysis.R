@@ -1,3 +1,5 @@
+###STEP 1
+
 #checking if the data is already loaded to allow faster testing
 if(!exists("testdat")){
     #loading the data into R
@@ -26,6 +28,9 @@ if(!exists("merged")){ #merging the test and train data
     rbind(testmerged,trainmerged) -> merged
 }
 
+
+###STEP 2
+
 #loads the names of the columns for the dataset into R
 features <- read.table("./UCI HAR Dataset/features.txt")
 
@@ -39,10 +44,25 @@ selectedIndecies <- c(1,2,grep("mean()|std()", names(merged)))
 # A dataset containing only the labels and columns with mean or std
 merged[,selectedIndecies] -> selected
 
+
+###STEP 3
+
 # Setting up a vector to use to index names
 activityLabels <- c("WALKING","WALKING_UPSTAIRS","WALKING_DOWNSTAIRS","SITTING,STANDING","LAYING")
 # Creates a column called "activityname" to merge the data
 selected$activityName <- activityLabels[selected$`activity id`]
 
+
+###STEP 4
+
 # no step required for adding descriptive variable names, that was done when the
-# features table overwrote the merged dataset's names
+# features table overwrote the merged dataset's names, only slight modifications
+# needed
+selected -> descriptiveNames
+# Applies basic replacements to make time and freq clearer, everything else had
+# enough letters to make the idea of what the variable referred to clear
+names(descriptiveNames) <- gsub("^t", "time", gsub("^f", "freq", names(descriptiveNames)))
+
+
+###Step 5
+
