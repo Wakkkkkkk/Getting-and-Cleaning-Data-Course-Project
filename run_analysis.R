@@ -73,7 +73,6 @@ descriptiveNames -> tidyData
 arrange(tidyData, tidyData$subject, tidyData$`activity id`)->tidyData
 arrange(tidyData,)
 
-vars <- names(tidyData)[3:length(names(tidyData))]
 tidyData %>%
-    group_by(subject,tidyData$`activity id`) %>%
-    summarise(across(everything(), list(mean)))->tidyData
+    group_by(subject,tidyData$`activity id`) %>% #Groups the data so it can be processed by summarise
+    summarise(across(everything(), list(mean)))->tidyData #takes the mean of each list across each subject-activity pair
