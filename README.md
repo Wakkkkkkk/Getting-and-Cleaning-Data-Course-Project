@@ -30,7 +30,7 @@ The column names are imported...
 features <- read.table("./UCI HAR Dataset/features.txt")
 ```
 ...So they can be used to assign names to the columns of the dataset (subject and activity id need to be filled in because they aren't a part of the original features data)
-```
+```R
 names(merged) <- c("subject", "activity id", features$V2)
 ```
 Then using these new column names, the columns with "mean()" or "std()" are selected out and put into a new dataset called "selected"
