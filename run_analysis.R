@@ -76,3 +76,5 @@ arrange(tidyData,)
 tidyData %>%
     group_by(subject,tidyData$`activity id`) %>% #Groups the data so it can be processed by summarise
     summarise(across(everything(), list(mean)))->tidyData #takes the mean of each list across each subject-activity pair
+
+write.csv(tidyData, "TidyData.csv") #Writes the tidt data to a csv

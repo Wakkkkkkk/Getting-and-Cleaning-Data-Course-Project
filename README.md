@@ -23,4 +23,18 @@ Then merges those two with each other via rbind (they have the same columns, so 
     rbind(testmerged,trainmerged) -> merged
 ```
 Creating the full dataset used for the rest of the problem
+
 ### STEP 2
+The column names are imported...
+```R
+features <- read.table("./UCI HAR Dataset/features.txt")
+```
+...So they can be used to assign names to the columns of the dataset (subject and activity id need to be filled in because they aren't a part of the original features data)
+```
+names(merged) <- c("subject", "activity id", features$V2)
+```
+Then using these new column names, the columns with "mean()" or "std()" are selected out and put into a new dataset called "selected"
+```R
+selectedIndecies <- c(1,2,grep("mean()|std()", names(merged)))
+merged[,selectedIndecies] -> selected
+```
