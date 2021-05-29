@@ -38,3 +38,19 @@ Then using these new column names, the columns with "mean()" or "std()" are sele
 selectedIndecies <- c(1,2,grep("mean()|std()", names(merged)))
 merged[,selectedIndecies] -> selected
 ```
+
+### Step 3
+This step was simple enough, just create a vector whose indexes represent the names of each activity type and use it to convert the ids into activities, then assign it to a new column in the dataset.
+```R
+activityLabels <- c("WALKING","WALKING_UPSTAIRS","WALKING_DOWNSTAIRS","SITTING","STANDING","LAYING")
+selected[["activity id"]] <- activityLabels[selected$`activity id`]
+```
+
+### Step 4
+Since I already imported the names for each column, I just expanded out the names a bit to make them easier to read
+```R
+names(descriptiveNames) <- gsub("^t", "time", gsub("^f", "freq", names(descriptiveNames)))
+```
+
+### Step 5
+This was by far the most complex.
