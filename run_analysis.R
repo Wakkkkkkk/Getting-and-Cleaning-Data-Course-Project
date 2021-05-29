@@ -1,3 +1,6 @@
+##IMPORTING PACKAGES
+library(dplyr)
+
 ###STEP 1
 {
 #checking if the data is already loaded to allow faster testing
@@ -48,9 +51,9 @@ merged[,selectedIndecies] -> selected
 ###STEP 3
 {
 # Setting up a vector to use to index names
-activityLabels <- c("WALKING","WALKING_UPSTAIRS","WALKING_DOWNSTAIRS","SITTING,STANDING","LAYING")
+activityLabels <- c("WALKING","WALKING_UPSTAIRS","WALKING_DOWNSTAIRS","SITTING","STANDING","LAYING")
 # Creates a column called "activityname" to merge the data
-selected$activityName <- activityLabels[selected$`activity id`]
+selected[["activity id"]] <- activityLabels[selected$`activity id`]
 }
 
 ###STEP 4
@@ -66,4 +69,11 @@ names(descriptiveNames) <- gsub("^t", "time", gsub("^f", "freq", names(descripti
 
 ###STEP 5
 
-selected -> tidyData
+descriptiveNames -> tidyData
+arrange(tidyData, tidyData$subject, tidyData$`activity id`)->tidyData
+arrange(tidyData,)
+
+vars <- names(tidyData)[3:length(names(tidyData))]
+tidyData %>%
+    group_by(subject,tidyData$`activity id`) %>%
+    summarise(across(everything(), list(mean)))->tidyData
