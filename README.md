@@ -54,3 +54,17 @@ names(descriptiveNames) <- gsub("^t", "time", gsub("^f", "freq", names(descripti
 
 ### Step 5
 This was by far the most complex.
+First, the data are arranged by subject and activity
+```R
+arrange(tidyData, tidyData$subject, tidyData$`activity id`)->tidyData
+```
+Then it is fed through a pipeline to group the data by subject and activity, and then those groups' data are averaged out with the mean() function.
+```R
+tidyData %>%
+    group_by(subject,tidyData$`activity id`) %>% #Groups the data so it can be processed by summarise
+    summarise(across(everything(), list(mean)))->tidyData #takes the mean of each list across each subject-activity pair
+```
+With the averages taken, the data is written to a file for your viewing.
+```R
+write.csv(tidyData, "TidyData.csv")
+```
